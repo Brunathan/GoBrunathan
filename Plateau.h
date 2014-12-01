@@ -9,6 +9,7 @@
 #define	PLATEAU_H
 
 #include "Coord.h"
+#include <iostream>
 
 class Plateau {
 public:
