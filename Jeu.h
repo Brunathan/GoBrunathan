@@ -21,6 +21,7 @@ public:
     bool suicide(Coord C, int Couleur);
     void run();
     bool fin();
+    void rafraichir(Coord C);
 private:
     Plateau P;
     joueur jBlanc , jNoir;
