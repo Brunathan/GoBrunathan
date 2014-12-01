@@ -1,4 +1,4 @@
-/* 
+*/ 
  * File:   joueur.cpp
  * Author: Brunathan
  * 
