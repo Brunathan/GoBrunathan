@@ -56,7 +56,7 @@ void Plateau::affichage(){
     {
         for(unsigned int j=0;j<taille;j++)
         {
-            switch tab[i][j]
+            switch (tab[i][j])
             {
                 case -1:
                 cout<<"O ";
