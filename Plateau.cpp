@@ -69,4 +69,5 @@ void Plateau::affichage(){
         cout<<endl;
     } 
 }
+void Plateau::
 
