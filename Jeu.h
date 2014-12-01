@@ -8,6 +8,8 @@
 #ifndef JEU_H
 #define	JEU_H
 
+#include <iostream>
+
 #include "Coord.h"
 #include "Plateau.h"
 #include "joueur.h"
@@ -17,7 +19,6 @@ public:
     Jeu() ;
     bool jouable(Coord C, int Couleur);
     bool suicide(Coord C, int Couleur);
-    void modifs();
     void run();
     bool fin();
 private:

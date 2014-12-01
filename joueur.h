@@ -15,9 +15,8 @@ class joueur {
 public:
     joueur();
     void ajoutPrisonniers(int nb);
-    Coord choixJeu(Plateau P); // (-1,-1) pour passer son tours 
+    Coord choixJeu(); // (-1,-1) pour passer son tours 
     bool aPasse ();
-    /**/
     
 private:
     int couleur; //-1:blanc 0:rien 1:noir 
