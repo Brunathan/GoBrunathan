@@ -1,4 +1,4 @@
-*/ 
+/*
  * File:   joueur.cpp
  * Author: Brunathan
  * 
@@ -7,6 +7,7 @@
 
 using namespace std;
 #include "joueur.h"
+
 
 
 joueur::joueur() {
