@@ -59,11 +59,11 @@ void Plateau::affichage(){
             switch tab[i][j]
             {
                 case -1:
-                {cout<<"O ";}
+                cout<<"O ";
                 case 0: 
-                {cout<<". ";}
+                cout<<". ";
                 case 1:
-                {cout<<"X ";}
+                cout<<"X ";
             }
         }
         cout<<endl;
