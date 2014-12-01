@@ -7,6 +7,8 @@
 
 #include "Plateau.h"
 
+using namespace std;
+
 Plateau::Plateau() {
     taille=19;
     tab=new int*[taille];
@@ -21,6 +23,7 @@ Plateau::Plateau() {
             tab[i][j]=0;
         }
     }
+}
 
 Plateau::Plateau(int _taille) {
     taille=_taille;
@@ -62,7 +65,6 @@ void Plateau::affichage(){
                 case 1:
                 {cout<<"X ";}
             }
-            
         }
         cout<<endl;
     } 

@@ -11,10 +11,3 @@ Coord::Coord() {
     x=0;
     y=0;
 }
-
-Coord::Coord(const Coord& orig) {
-}
-
-Coord::~Coord() {
-}
-
