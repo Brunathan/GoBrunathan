@@ -19,7 +19,7 @@ public:
     void placerPion(Coord C , int couleur);
     void supprimerPion(Coord C);
     void affichage();
-    void rafraichir(Coord C);
+    
     
     
 private:

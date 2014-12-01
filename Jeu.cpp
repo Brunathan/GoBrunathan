@@ -32,7 +32,7 @@ Jeu::run()
         if(jNoir.aPasse()!=true) 
         {
             P.placerPion(Choix, -1);
-            P.rafraichir(Choix);
+            rafraichir(Choix);
         }
         
         cout<<endl<<"Joueur blanc, a toi de jouer :"<<endl;
@@ -46,7 +46,7 @@ Jeu::run()
         if(jBlanc.aPasse()!=true) 
         {
             P.placerPion(Choix, -1);
-            P.rafraichir(Choix);
+            rafraichir(Choix);
         }
         
     }
