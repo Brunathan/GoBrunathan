@@ -66,7 +66,7 @@ int Plateau::getIntersection(Coord C) const
     return tab[C.x][C.y];
     
 }
-// accès en lecture de la taille du plateau
+// accès en lecture de la taille du plateau voila
 int Plateau::getTaille() const
 {
     return taille;
