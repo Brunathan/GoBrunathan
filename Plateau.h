@@ -13,13 +13,14 @@
 
 class Plateau {
 public:
-    Plateau();
-    Plateau(Plateau P);
-    Plateau(int _taille);
-    int getIntersection(Coord C) const;
-    void placerPion(Coord C , int couleur);
-    void supprimerPion(Coord C);
-    void affichage();
+    Plateau();                              // constructeur de plateau avec une taille par défaut de 19
+    Plateau(Plateau P);                     // constructeur de plateau qui copie le plateau argument
+    Plateau(int _taille);                   // constructeur de plateau avec une taille parapétrable
+    int getIntersection(Coord C) const;     // accès en lecture au contenu d'une intersection définir par ses coordonnées
+    int getTaille() const;                  // accès en lecture de la taille du plateau
+    void placerPion(Coord C , int couleur); // Placement d'un pion d'une couleur donnée à une intersection
+    void supprimerPion(Coord C);            // suppression d'un pion par mise à 0 de la valeur de l'intersection
+    void affichage();                       // Méthode d'affichage du plateau
     
     
     
