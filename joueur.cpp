@@ -8,6 +8,12 @@
 using namespace std;
 #include "joueur.h"
 
+joueur::joueur()
+{
+    nbPrisonniers=0;
+    score=0;
+}
+
 // ajoute des prisonniers à un joueur
  void joueur::ajoutPrisonniers(int nb)
  {
@@ -22,6 +28,8 @@ using namespace std;
      cout<<endl<<"y = ";
      cin>>c.y;
      dernierTour=c;
+     c.x-=1;
+     c.y-=1;
      return c;
  }  
 // retourne un booléen disant si le joueur a passé

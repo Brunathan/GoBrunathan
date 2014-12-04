@@ -21,7 +21,8 @@ public:
     void run();
     bool fin();
     bool estVivant(Coord C, Plateau plat);
-    void rafraichir(Plateau plat); // Renvoie (nb pions blancs,nb pions noirs) supprimés 
+    void rafraichir(Plateau* plat); // Renvoie (nb pions blancs,nb pions noirs) supprimés 
+    int test(Coord C, int* Couleur);
     Coord score();
 private:
     Plateau* P;

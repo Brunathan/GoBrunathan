@@ -85,21 +85,17 @@ void Plateau::supprimerPion(Coord C)
 // Méthode d'affichage du plateau
 void Plateau::affichage()
 {
-    for(unsigned int i=0;i<taille;i++) // appel taille fois à la rédaction d'une ligne
+    for(unsigned int j=0;j<taille;j++) // appel taille fois à la rédaction d'une ligne
     {
-        for(unsigned int j=0;j<taille;j++) // rédaction d'une ligne
+        for(unsigned int i=0;i<taille;i++) // rédaction d'une ligne
         {
-            switch (tab[i][j])
-            {
-                case -1:
-                cout<<"O ";
-                case 0: 
-                cout<<". ";
-                case 1:
-                cout<<"X ";
-            }
+            if(tab[i][j] == -1)     cout<<"O "; // O correspond au joueur Blanc
+            if(tab[i][j] ==  1)     cout<<"X "; // X correspond au joueur Noir
+            if(tab[i][j] ==  0)     cout<<". "; // . correspond à une case vide
+
         }
         cout<<endl;
-    } 
-}
+    }
+} 
+
 
