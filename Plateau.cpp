@@ -11,32 +11,32 @@ using namespace std;
 // constructeur de plateau avec une taille par défaut de 19
 Plateau::Plateau() {
     taille=19;
-    tab=new int*[taille];
+    tab=new int*[taille]; // création de taille tableau
     for(unsigned int i=0;i<taille;i++)
     {
-        tab[i]=new int[taille];
+        tab[i]=new int[taille]; // création de taille case dans chaque tableau
     }
     for(unsigned int i=0;i<taille;i++)
     {
         for(unsigned int j=0;j<taille;j++)
         {
-            tab[i][j]=0;
+            tab[i][j]=0; // Initialisation à 0 du tableau
         }
     }
 }
 // constructeur de plateau avec une taille parapétrable
 Plateau::Plateau(int _taille) {
     taille=_taille;
-    tab=new int*[taille];
+    tab=new int*[taille];// création de taille tableau
     for(unsigned int i=0;i<taille;i++)
     {
-        tab[i]=new int[taille];
+        tab[i]=new int[taille]; // création de taille case dans chaque tableau
     }
      for(unsigned int i=0;i<taille;i++)
      {
         for(unsigned int j=0;j<taille;j++)
         {
-            tab[i][j]=0;
+            tab[i][j]=0;// Initialisation à 0 du tableau
         }
     }
 }
@@ -46,7 +46,7 @@ int Plateau::getIntersection(Coord C) const
     return tab[C.x][C.y];
     
 }
-// Placement d'unpion d'une couleur donnée à une intersection
+// Placement d'un pion d'une couleur donnée à une intersection
 void Plateau::placerPion(Coord C, int couleur)
 {
     tab[C.x][C.y]=couleur;
@@ -58,9 +58,9 @@ void Plateau::supprimerPion(Coord C)
 }
 // Méthode d'affichage du plateau
 void Plateau::affichage(){
-    for(unsigned int i=0;i<taille;i++)
+    for(unsigned int i=0;i<taille;i++) // appel taille fois à la rédaction d'une ligne
     {
-        for(unsigned int j=0;j<taille;j++)
+        for(unsigned int j=0;j<taille;j++) // rédaction d'une ligne
         {
             switch (tab[i][j])
             {
