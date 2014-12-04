@@ -15,8 +15,29 @@ Jeu::Jeu() {
 
 bool Jeu::suicide (Coord C, int Couleur)
 {
-    Plateau nouvPlat;
+    int x=C.x;
+    int y=C.y;
     
+    Coord Haut(x,y+1);
+    Coord Bas(x,y-1);
+    Coord Gauche(x-1,y);
+    Coord Droite(x+1,y);
+    
+    if (P.getIntersection(Haut)==0 ||
+        P.getIntersection(Bas)==0 ||
+        P.getIntersection(Gauche)==0 ||
+        P.getIntersection(Droite)==0)
+    {
+        return false;
+    }
+    
+    Plateau nouvPlat(P);
+    nouvPlat.placerPion(C,Couleur);
+    
+    if (Couleur==1 && rafraichir(C,nouvPlat).x>0) return false;
+    if (Couleur==-1 && rafraichir(C,nouvPlat).y>0) return false;
+    
+    return true;
 }
 
 Jeu::run()
