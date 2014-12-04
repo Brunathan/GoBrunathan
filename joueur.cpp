@@ -8,16 +8,12 @@
 using namespace std;
 #include "joueur.h"
 
-
-
-joueur::joueur() {
-}
-
+// ajoute des prisonniers à un joueur
  void joueur::ajoutPrisonniers(int nb)
  {
      nbPrisonniers+=nb;
- }
-    
+ } 
+// étape de jeu, le joueur choisi la case où il veut jouer
  Coord joueur::choixJeu() // (-1,-1) pour passer son tours 
  {
      Coord c;
@@ -25,8 +21,9 @@ joueur::joueur() {
      cin>>c.x;
      cout<<endl<<"y = ";
      cin>>c.y;
- }
-    
+     return c;
+ }  
+// retourne un booléen disant si le joueur a passé
  bool joueur::aPasse ()
  {
      if(dernierTour=(-1,-1)) return true;
