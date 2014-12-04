@@ -14,6 +14,7 @@
 class Plateau {
 public:
     Plateau();
+    Plateau(Plateau P);
     Plateau(int _taille);
     int getIntersection(Coord C) const;
     void placerPion(Coord C , int couleur);

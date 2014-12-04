@@ -17,11 +17,12 @@
 class Jeu {
 public:
     Jeu() ;
-    bool jouable(Coord C, int Couleur);
     bool suicide(Coord C, int Couleur);
+    bool jouable(Coord C, int Couleur);
     void run();
     bool fin();
-    void rafraichir(Coord C);
+    Coord rafraichir(Coord C, Plateau plat); // Renvoie (nb pions blancs,nb pions noirs) supprimés 
+    Coord score();
 private:
     Plateau P;
     joueur jBlanc , jNoir;

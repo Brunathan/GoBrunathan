@@ -13,6 +13,12 @@ Jeu::Jeu() {
     
 }
 
+bool Jeu::suicide (Coord C, int Couleur)
+{
+    Plateau nouvPlat;
+    
+}
+
 Jeu::run()
 {
     cout<<endl<<"C'est l'heure du du-d-du-duel !"<<endl;
@@ -48,6 +54,9 @@ Jeu::run()
             P.placerPion(Choix, -1);
             rafraichir(Choix);
         }
-        
     }
+    
+    if(score().x > score().y) cout<<endl<<"Joueur blanc a gagne !"<<endl;
+    
+    else cout<<endl<<"Joueur noir a gagne !"<<endl;
 }

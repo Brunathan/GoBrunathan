@@ -11,6 +11,7 @@
 class Coord {
 public:
     Coord();
+    Coord(int _x,int _y);
     int x;
     int y;
 private:
