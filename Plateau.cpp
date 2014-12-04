@@ -26,19 +26,20 @@ Plateau::Plateau()
     }
 }
 // constructeur de plateau qui copie le plateau argument
-Plateau::Plateau(Plateau P)
+Plateau::Plateau(const Plateau& P)
 {
+    Coord C;
     taille=P.getTaille();
     tab=new int*[taille]; // création de taille tableau
     for(unsigned int i=0;i<taille;i++)
     {
         tab[i]=new int[taille]; // création de taille case dans chaque tableau
     }
-    for(unsigned int i=0;i<taille;i++)
+    for(C.x=0;C.x<P.getTaille();C.x++)
     {
-        for(unsigned int j=0;j<taille;j++)
+        for(C.y=0;C.y<P.getTaille();C.y++)
         {
-            tab[i][j]=P[i][j]; // Initialisation du tableau avec les valeurs de l'argument
+            tab[C.x][C.y]=P.getIntersection(C); // Initialisation du tableau avec les valeurs de l'argument
         }
     }
 }

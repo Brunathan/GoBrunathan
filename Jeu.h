@@ -19,7 +19,8 @@ public:
     bool jouable(Coord C, int Couleur);
     void run();
     bool fin();
-    Coord rafraichir(Coord C, Plateau plat); // Renvoie (nb pions blancs,nb pions noirs) supprimés 
+    bool estVivant(Coord C, Plateau plat);
+    void rafraichir(Plateau plat); // Renvoie (nb pions blancs,nb pions noirs) supprimés 
     Coord score();
 private:
     Plateau P;

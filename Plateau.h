@@ -14,7 +14,7 @@
 class Plateau {
 public:
     Plateau();                              // constructeur de plateau avec une taille par défaut de 19
-    Plateau(Plateau P);                     // constructeur de plateau qui copie le plateau argument
+    Plateau(const Plateau& P);                     // constructeur de plateau qui copie le plateau argument
     Plateau(int _taille);                   // constructeur de plateau avec une taille parapétrable
     int getIntersection(Coord C) const;     // accès en lecture au contenu d'une intersection définir par ses coordonnées
     int getTaille() const;                  // accès en lecture de la taille du plateau
