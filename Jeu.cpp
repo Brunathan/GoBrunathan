@@ -9,80 +9,130 @@
 
 using namespace std;
 
-// Teste la case C pour savoir si un pion Couleur peut y être joué
 bool Jeu::jouable(Coord C, int Couleur)
 {
-    if(P.getIntersection(C)!=0) return false; // vérifie que la case n'est pas vide
+    if(P->getIntersection(C)!=0) return false;
     
-    int x=C.x;  // récupère les coordonnées choisies
-    int y=C.y;
-    
-    Coord Haut(x,y+1);  // stocke les coordonnées des cases entourant C
-    Coord Bas(x,y-1);
-    Coord Gauche(x-1,y);
-    Coord Droite(x+1,y);
-    
-    if (P.getIntersection(Haut)==0 ||
-        P.getIntersection(Bas)==0 ||
-        P.getIntersection(Gauche)==0 ||
-        P.getIntersection(Droite)==0)
-    {
-        return true;    // C est jouable si l'une des cases adjascente est vide
-    }
-    
-    Plateau nouvPlat(P);
+    Plateau nouvPlat(*P);
     nouvPlat.placerPion(C,Couleur);
     
-    if (Couleur==1 && rafraichir(C,nouvPlat).x>0) return true;  // si le pion joué est noir et que un/des pion(s) blanc(s) seront supprimé(s), c'est jouable
-    if (Couleur==-1 && rafraichir(C,nouvPlat).y>0) return true; // si le pion joué est blanc et que un/des pion(s) noir(s) seront supprimé(s), c'est jouable
+    if(estVivant(C,nouvPlat)) return true;
     
     return false;
 }
-// lance le jeu
-Jeu::run()
+
+void Jeu::run()
 {
-    cout<<endl<<"C'est l'heure du du-d-du-duel !"<<endl;        // message de bienvenue
+    int taille;
     
-    while(fin()!=true)                                          // boucle tant que le jeu n'est pas fini
+    cout<<endl<<"C'est l'heure du du-d-du-duel !"<<endl;
+    cout<<endl<<"Choisir la taille du plateau de jeu !"<<endl;
+    cin>>taille;
+    
+    P = new Plateau(taille);
+            
+    while(fin()!=true)
     {
         Coord Choix;
         
-        cout<<endl<<"Joueur noir, a toi de jouer :"<<endl;      // debut du tour du joueur noir
+        P->affichage();
+        
+        cout<<endl<<"Joueur noir, a toi de jouer :"<<endl;
         
         Choix=jNoir.choixJeu();
-        while(jouable(Choix,-1) != true)                        // tant que la case demandée n'est pas jouable, on demande de recommencer
+        while(jouable(Choix,-1) != true)
         {
             cout<<endl<<"Choix non possible, veuillez entrer une position valide"<<endl;
             Choix=jNoir.choixJeu();
         }
-        if(jNoir.aPasse()!=true)                                // si le joueur ne passe pas, on place le pion et on raffraichi le plateau
+        if(jNoir.aPasse()!=true) 
         {
-            P.placerPion(Choix, -1);
-            rafraichir(Choix);
+            P->placerPion(Choix, -1);
+            rafraichir(*P);
         }
-
-        cout<<endl<<"Joueur blanc, a toi de jouer :"<<endl;     // debut du tour du joueur blanc
+        
+        system("CLS");
+        
+        P->affichage();
+        
+        cout<<endl<<"Joueur blanc, a toi de jouer :"<<endl;
         
         Choix=jBlanc.choixJeu();
-        while(jouable(Choix,-1) != true)                        // tant que la case demandée n'est pas jouable, on demande de recommencer
+        while(jouable(Choix,-1) != true)
         {
             cout<<endl<<"Choix non possible, veuillez entrer une position valide"<<endl;
             Choix=jBlanc.choixJeu();
         }
-        if(jBlanc.aPasse()!=true)                               // si le joueur ne passe pas, on place le pion et on raffraichi le plateau
+        if(jBlanc.aPasse()!=true) 
         {
-            P.placerPion(Choix, -1);
-            rafraichir(Choix);
+            P->placerPion(Choix, -1);
+            rafraichir(*P);
         }
     }
     
-    if(score().x > score().y) cout<<endl<<"Joueur blanc a gagne !"<<endl;
+    //if(score().x > score().y) cout<<endl<<"Joueur blanc a gagne !"<<endl;
     
-    else cout<<endl<<"Joueur noir a gagne !"<<endl;             // à la fin du jeu, le joueur avec le plus grans score gagne
+    //else cout<<endl<<"Joueur noir a gagne !"<<endl;
+    
+    cout<<endl<<"fini !"<<endl;
 }
-// vélifie si la partie est terminée
-Jeu::fin()
+
+bool Jeu::fin()
 {
-    if(jBlanc.aPasse() && jNoir.aPasse()) return true;          // le jeu se termine quand les deux joueurs ont passé
+    if(jBlanc.aPasse() && jNoir.aPasse()) return true;
     else return false;
+}
+
+bool Jeu::estVivant(Coord C, Plateau plat)
+{
+    
+    int x=C.x;
+    int y=C.y;
+    
+    Coord Haut(x,y+1);
+    Coord Bas(x,y-1);
+    Coord Gauche(x-1,y);
+    Coord Droite(x+1,y);
+    
+    if (plat.getIntersection(Haut)==0 ||
+        plat.getIntersection(Bas)==0 ||
+        plat.getIntersection(Gauche)==0 ||
+        plat.getIntersection(Droite)==0)
+    {
+        return true;
+    }
+    
+    if((plat.getIntersection(Haut)   == plat.getIntersection(C) && estVivant(Haut,plat))
+    || (plat.getIntersection(Droite) == plat.getIntersection(C) && estVivant(Droite,plat))
+    || (plat.getIntersection(Gauche) == plat.getIntersection(C) && estVivant(Gauche,plat))
+    || (plat.getIntersection(Bas)    == plat.getIntersection(C) && estVivant(Bas,plat)))
+    {
+        return true;
+    }        
+    
+    return false;
+}
+
+void Jeu::rafraichir(Plateau plat)
+{
+    Coord C;
+    
+    for(C.x=0;C.x<plat.getTaille();C.x++)
+    {
+        for(C.y=0;C.y<plat.getTaille();C.y++)
+        {
+            if(estVivant(C,plat)==false)
+            {
+                if(plat.getIntersection(C)==-1) 
+                {
+                    jNoir.ajoutPrisonniers(1);
+                }
+                if(plat.getIntersection(C)==1) 
+                {
+                    jBlanc.ajoutPrisonniers(1);
+                }
+                plat.placerPion(C,0);
+            }
+        }
+    }
 }
