@@ -10,8 +10,8 @@
 
 class Coord {
 public:
-    Coord();
-    Coord(int _x,int _y);
+    Coord();                // constructeur de coordonnées avec (0,0) comme valeurs par défaut
+    Coord(int _x,int _y);   // constructeur de coordonnées paramétrées par x et y
     int x;
     int y;
 private:

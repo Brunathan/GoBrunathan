@@ -7,13 +7,14 @@
 
 #include "Coord.h"
 
+// constructeur de coordonnées avec (0,0) comme valeurs par défaut
+Coord::Coord() {
+    x=0;
+    y=0;
+}
+// constructeur de coordonnées paramétrées par x et y
 Coord::Coord(int _x,int _y)
 {
     x=_x;
     y=_y;
-}
-
-Coord::Coord() {
-    x=0;
-    y=0;
 }
