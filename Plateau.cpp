@@ -26,20 +26,19 @@ Plateau::Plateau()
     }
 }
 // constructeur de plateau qui copie le plateau argument
-Plateau::Plateau(const Plateau& P)
+Plateau::Plateau(Plateau P)
 {
-    Coord C;
     taille=P.getTaille();
     tab=new int*[taille]; // création de taille tableau
     for(unsigned int i=0;i<taille;i++)
     {
         tab[i]=new int[taille]; // création de taille case dans chaque tableau
     }
-    for(C.x=0;C.x<P.getTaille();C.x++)
+    for(unsigned int i=0;i<taille;i++)
     {
-        for(C.y=0;C.y<P.getTaille();C.y++)
+        for(unsigned int j=0;j<taille;j++)
         {
-            tab[C.x][C.y]=P.getIntersection(C); // Initialisation du tableau avec les valeurs de l'argument
+            tab[i][j]=P[i][j]; // Initialisation du tableau avec les valeurs de l'argument
         }
     }
 }
@@ -89,17 +88,12 @@ void Plateau::affichage()
     {
         for(unsigned int j=0;j<taille;j++) // rédaction d'une ligne
         {
-            switch (tab[i][j])
-            {
-                case -1:
-                cout<<"O ";
-                case 0: 
-                cout<<". ";
-                case 1:
-                cout<<"X ";
-            }
+            if(tab[i][j]=-1)    cout<<"O "; // O correspond au joueur Blanc
+            if(tab[i][j]=1)     cout<<"X "; // X correspond au joueur Noir
+            if(tab[i][j]=0)     cout<<". "; // . correspond à une case vide
+
         }
         cout<<endl;
-    } 
-}
+    }
+} 
 

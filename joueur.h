@@ -13,9 +13,9 @@
 
 class joueur {
 public:
-    void ajoutPrisonniers(int nb);
-    Coord choixJeu(); // (-1,-1) pour passer son tours 
-    bool aPasse ();
+    void ajoutPrisonniers(int nb);  // ajoute un nombre nb de prisonier au joueur
+    Coord choixJeu();               // étape de jeu, le joueur choisi la case où il veut jouer ; (-1,-1) pour passer son tours 
+    bool aPasse ();                 // renvoie un booléen disant si le joueur a passé au dernier tour
     
 private:
     int couleur; //-1:blanc 0:rien 1:noir 

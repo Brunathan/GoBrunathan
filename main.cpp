@@ -8,7 +8,6 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "Jeu.h"
 
 using namespace std;
 
@@ -17,10 +16,7 @@ using namespace std;
  */
 
 int main(int argc, char** argv) {
-    
-    Jeu jeu;
-    jeu.run();
-    
+    cout << "hello xorld";
     return 0;
 }
 

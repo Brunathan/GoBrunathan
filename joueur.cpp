@@ -27,6 +27,6 @@ using namespace std;
 // retourne un booléen disant si le joueur a passé
  bool joueur::aPasse ()
  {
-     if(dernierTour.x==-1 && dernierTour.y==-1) return true;
+     if(dernierTour=(-1,-1)) return true;
      else return false;
  }
