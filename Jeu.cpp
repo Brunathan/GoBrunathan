@@ -9,12 +9,10 @@
 
 using namespace std;
 
-Jeu::Jeu() {
-    
-}
-
-bool Jeu::suicide (Coord C, int Couleur)
+bool Jeu::jouable(Coord C, int Couleur)
 {
+    if(P.getIntersection(C)!=0) return false;
+    
     int x=C.x;
     int y=C.y;
     
@@ -28,16 +26,16 @@ bool Jeu::suicide (Coord C, int Couleur)
         P.getIntersection(Gauche)==0 ||
         P.getIntersection(Droite)==0)
     {
-        return false;
+        return true;
     }
     
     Plateau nouvPlat(P);
     nouvPlat.placerPion(C,Couleur);
     
-    if (Couleur==1 && rafraichir(C,nouvPlat).x>0) return false;
-    if (Couleur==-1 && rafraichir(C,nouvPlat).y>0) return false;
+    if (Couleur==1 && rafraichir(C,nouvPlat).x>0) return true;
+    if (Couleur==-1 && rafraichir(C,nouvPlat).y>0) return true;
     
-    return true;
+    return false;
 }
 
 Jeu::run()

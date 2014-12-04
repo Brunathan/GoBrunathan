@@ -16,8 +16,6 @@
 
 class Jeu {
 public:
-    Jeu() ;
-    bool suicide(Coord C, int Couleur);
     bool jouable(Coord C, int Couleur);
     void run();
     bool fin();
