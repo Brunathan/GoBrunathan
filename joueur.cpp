@@ -21,6 +21,7 @@ using namespace std;
      cin>>c.x;
      cout<<endl<<"y = ";
      cin>>c.y;
+     dernierTour=c;
      return c;
  }  
 // retourne un booléen disant si le joueur a passé

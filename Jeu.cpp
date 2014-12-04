@@ -79,3 +79,8 @@ Jeu::run()
     
     else cout<<endl<<"Joueur noir a gagne !"<<endl;
 }
+Jeu::fin()
+{
+    if(jBlanc.aPasse() && jNoir.aPasse()) return true;
+    else return false;
+}
