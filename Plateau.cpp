@@ -91,11 +91,11 @@ void Plateau::affichage()
             switch (tab[i][j])
             {
                 case -1:
-                cout<<"O ";
+                cout<<"O "; // O correspond au joueur Blanc
                 case 0: 
-                cout<<". ";
+                cout<<". "; // . correspond à une case vide
                 case 1:
-                cout<<"X ";
+                cout<<"X "; // X correspond au joueur Noir
             }
         }
         cout<<endl;

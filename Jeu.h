@@ -16,11 +16,11 @@
 
 class Jeu {
 public:
-    bool jouable(Coord C, int Couleur);
-    void run();
-    bool fin();
+    bool jouable(Coord C, int Couleur);      // férifie si l'intersection choisie est jouable
+    void run();                              // lance la partie
+    bool fin();                              // vélifie si la partie est terminée
     Coord rafraichir(Coord C, Plateau plat); // Renvoie (nb pions blancs,nb pions noirs) supprimés 
-    Coord score();
+    Coord score();                           // renvoie le score sous la forme de coordonnées
 private:
     Plateau P;
     joueur jBlanc , jNoir;
