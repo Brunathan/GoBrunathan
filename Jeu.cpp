@@ -11,9 +11,9 @@ using namespace std;
 
 bool Jeu::jouable(Coord C, int Couleur)
 {
-    if(P.getIntersection(C)!=0) return false;
+    if(P->getIntersection(C)!=0) return false;
     
-    Plateau nouvPlat(P);
+    Plateau nouvPlat(*P);
     nouvPlat.placerPion(C,Couleur);
     
     if(estVivant(C,nouvPlat)) return true;
@@ -23,11 +23,19 @@ bool Jeu::jouable(Coord C, int Couleur)
 
 void Jeu::run()
 {
-    cout<<endl<<"C'est l'heure du du-d-du-duel !"<<endl;
+    int taille;
     
+    cout<<endl<<"C'est l'heure du du-d-du-duel !"<<endl;
+    cout<<endl<<"Choisir la taille du plateau de jeu !"<<endl;
+    cin>>taille;
+    
+    P = new Plateau(taille);
+            
     while(fin()!=true)
     {
         Coord Choix;
+        
+        P->affichage();
         
         cout<<endl<<"Joueur noir, a toi de jouer :"<<endl;
         
@@ -39,9 +47,13 @@ void Jeu::run()
         }
         if(jNoir.aPasse()!=true) 
         {
-            P.placerPion(Choix, -1);
-            rafraichir(P);
+            P->placerPion(Choix, -1);
+            rafraichir(*P);
         }
+        
+        system("CLS");
+        
+        P->affichage();
         
         cout<<endl<<"Joueur blanc, a toi de jouer :"<<endl;
         
@@ -53,14 +65,16 @@ void Jeu::run()
         }
         if(jBlanc.aPasse()!=true) 
         {
-            P.placerPion(Choix, -1);
-            rafraichir(P);
+            P->placerPion(Choix, -1);
+            rafraichir(*P);
         }
     }
     
-    if(score().x > score().y) cout<<endl<<"Joueur blanc a gagne !"<<endl;
+    //if(score().x > score().y) cout<<endl<<"Joueur blanc a gagne !"<<endl;
     
-    else cout<<endl<<"Joueur noir a gagne !"<<endl;
+    //else cout<<endl<<"Joueur noir a gagne !"<<endl;
+    
+    cout<<endl<<"fini !"<<endl;
 }
 
 bool Jeu::fin()

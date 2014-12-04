@@ -9,6 +9,7 @@
 #define	JEU_H
 
 #include <iostream>
+#include <cstdlib>
 
 #include "Coord.h"
 #include "Plateau.h"
@@ -23,7 +24,7 @@ public:
     void rafraichir(Plateau plat); // Renvoie (nb pions blancs,nb pions noirs) supprimés 
     Coord score();
 private:
-    Plateau P;
+    Plateau* P;
     joueur jBlanc , jNoir;
     
 };
