@@ -196,12 +196,12 @@ int Jeu::test(Coord C, int* Couleur)
     
     if (Gauche.x>=0 && P->getIntersection(Gauche)==0)  
     {
-        return 1+test(Bas,Couleur);
+        return 1+test(Gauche,Couleur);
     }   
     
     if (Droite.x<P->getTaille() && P->getIntersection(Droite)==0)  
     {
-        return 1+test(Bas,Couleur);
+        return 1+test(Droite,Couleur);
     }
     
     return 0;
