@@ -20,7 +20,7 @@ TEST(test_vivant, vide)
     EXPECT_TRUE(nouvJeu.jouable(C,-1));
 }
 
-TEST(test_test)
+TEST(test_test, nbvides)
 {
     Jeu nouvJeu;
     Coord C(0,0);
