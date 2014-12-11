@@ -27,7 +27,6 @@ joueur::joueur()
      cin>>c.x;
      cout<<endl<<"y = ";
      cin>>c.y;
-     cout<<"a"<<endl;
      c.x=c.x-1;
      c.y=c.y-1;
      dernierTour=c;
