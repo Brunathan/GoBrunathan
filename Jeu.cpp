@@ -40,19 +40,19 @@ void Jeu::run()
         cout<<endl<<"Joueur noir, a toi de jouer :"<<endl;
         
         Choix=jNoir.choixJeu();
-        
+       
         while(jouable(Choix,1) != true)
         {
             cout<<endl<<"Choix non possible, veuillez entrer une position valide"<<endl;
             Choix=jNoir.choixJeu();
         }
+        
+        /// ATTENTION PLANTAGE QUAND ON PASSE 
         if(jNoir.aPasse()!=true) 
         {
             P->placerPion(Choix, 1);
             rafraichir(P);
         }
-        
-        system("clear"); 
         
         P->affichage();
         
