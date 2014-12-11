@@ -85,8 +85,15 @@ void Plateau::supprimerPion(Coord C)
 // Méthode d'affichage du plateau
 void Plateau::affichage()
 {
+    for (unsigned int i=0;i<taille;i++) 
+    {
+    cout<<" "<<i+1;
+    }
+    cout<<" X"<<endl;
     for(unsigned int j=0;j<taille;j++) // appel taille fois à la rédaction d'une ligne
     {
+        cout<<j+1;
+
         for(unsigned int i=0;i<taille;i++) // rédaction d'une ligne
         {
             if(tab[i][j] == -1)     cout<<"O "; // O correspond au joueur Blanc
@@ -96,6 +103,7 @@ void Plateau::affichage()
         }
         cout<<endl;
     }
+    cout<<"Y"<<endl;
 } 
 
 
