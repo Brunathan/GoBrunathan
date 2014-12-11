@@ -17,9 +17,37 @@ bool Jeu::jouable(Coord C, int Couleur)
     
     Plateau nouvPlat(*P);
     nouvPlat.placerPion(C,Couleur);
+    int x=C.x;
+    int y=C.y;
+    
+    Coord Haut(x,y+1);
+    Coord Bas(x,y-1);
+    Coord Gauche(x-1,y);
+    Coord Droite(x+1,y);
+    
     
     cout<<"a"<<endl;
+    
     if(estVivant(C,nouvPlat)) return true;
+    
+    //La suite permet de tuer des groupes de pions en comettant un sucide 
+    //(mange un groupe avec un seul oeil par exemple)
+    if (estVivant(Droite,nouvPlat)==false)//a droite un truc meurt ? 
+    {
+       return true; 
+    }
+    if (estVivant(Gauche,nouvPlat)==false)//a gauche un truc meurt ? 
+    {
+       return true; 
+    }
+    if (estVivant(Haut,nouvPlat)==false)//en haut un truc meurt ? 
+    {
+       return true; 
+    }
+    if (estVivant(Bas,nouvPlat)==false)//en bas un truc meurt ? 
+    {
+       return true; 
+    }
     cout<<"b"<<endl;
     
     return false;
