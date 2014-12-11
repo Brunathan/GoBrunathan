@@ -72,7 +72,8 @@ void Jeu::run()
         }
     }
     
-    //if(score().x > score().y) cout<<endl<<"Joueur blanc a gagne !"<<endl;
+    calculScore();
+    if( > score().y) cout<<endl<<"Joueur blanc a gagne !"<<endl;
     
     //else cout<<endl<<"Joueur noir a gagne !"<<endl;
     
@@ -206,7 +207,7 @@ int Jeu::test(Coord C, int* Couleur)
     return 0;
 }
 
-Coord Jeu::score()
+void Jeu::calculScore()
 {
     Coord C;
     int Score;
