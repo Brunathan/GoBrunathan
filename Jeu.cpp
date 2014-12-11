@@ -32,19 +32,19 @@ bool Jeu::jouable(Coord C, int Couleur)
     
     //La suite permet de tuer des groupes de pions en comettant un sucide 
     //(mange un groupe avec un seul oeil par exemple)
-    if (estVivant(Droite,nouvPlat)==false)//a droite un truc meurt ? 
+    if (Droite.x<P->getTaille() && estVivant(Droite,nouvPlat)==false)//a droite un truc meurt ? 
     {
        return true; 
     }
-    if (estVivant(Gauche,nouvPlat)==false)//a gauche un truc meurt ? 
+    if (Gauche.x>0 && estVivant(Gauche,nouvPlat)==false)//a gauche un truc meurt ? 
     {
        return true; 
     }
-    if (estVivant(Haut,nouvPlat)==false)//en haut un truc meurt ? 
+    if (Haut.y>0 && estVivant(Haut,nouvPlat)==false)//en haut un truc meurt ? 
     {
        return true; 
     }
-    if (estVivant(Bas,nouvPlat)==false)//en bas un truc meurt ? 
+    if (Bas.y<P->getTaille() && estVivant(Bas,nouvPlat)==false)//en bas un truc meurt ? 
     {
        return true; 
     }
@@ -60,7 +60,7 @@ void Jeu::run()
     cout<<endl<<"C'est l'heure du du-d-du-duel !"<<endl;
     cout<<endl<<"Choisir la taille du plateau de jeu !"<<endl;
     cin>>taille;
-    
+    Coord LastC; //dernier mouvement
     P = new Plateau(taille);
     
     while(fin()!=true)
@@ -83,7 +83,8 @@ void Jeu::run()
         if(jNoir.aPasse()!=true) 
         {
             P->placerPion(Choix, 1);
-            rafraichir(P);
+            LastC = Choix;
+            rafraichir(P,LastC);
         }
         
         P->affichage();
@@ -99,7 +100,9 @@ void Jeu::run()
         if(jBlanc.aPasse()!=true) 
         {
             P->placerPion(Choix, -1);
-            rafraichir(P);
+            LastC = Choix;
+            rafraichir(P,LastC);
+            
         }
     }
     
@@ -166,11 +169,125 @@ bool Jeu::estVivant(Coord C, Plateau plat)
     return false;
 }
 
-void Jeu::rafraichir(Plateau* plat)
+void Jeu::rafraichir(Plateau* plat, Coord LastC)
 {
+    int x=LastC.x;
+    int y=LastC.y;
+    
+    Coord Haut(x,y+1);
+    Coord Bas(x,y-1);
+    Coord Gauche(x-1,y);
+    Coord Droite(x+1,y);
     Coord C;
     int i,j;
     
+        C=Haut;
+            
+        T.clear();
+
+        if(Haut.y>0 && estVivant(C,*plat)==false)
+        {
+            for(int k=0;k<T.size();k++)
+            {
+                C.x=T[k].x;
+                C.y=T[k].y;
+
+                if(plat->getIntersection(C)==-1) 
+                {
+                    jNoir.ajoutPrisonniers(1);
+                    plat->placerPion(C,0);
+                }
+
+                if(plat->getIntersection(C)==1) 
+                {
+                    jBlanc.ajoutPrisonniers(1);
+                    plat->placerPion(C,0);
+                }
+
+                plat->placerPion(C,0);
+            }
+        }
+        
+        C=Bas;
+            
+        T.clear();
+
+        if(Bas.y<plat->getTaille() && estVivant(C,*plat)==false)
+        {
+            for(int k=0;k<T.size();k++)
+            {
+                C.x=T[k].x;
+                C.y=T[k].y;
+
+                if(plat->getIntersection(C)==-1) 
+                {
+                    jNoir.ajoutPrisonniers(1);
+                    plat->placerPion(C,0);
+                }
+
+                if(plat->getIntersection(C)==1) 
+                {
+                    jBlanc.ajoutPrisonniers(1);
+                    plat->placerPion(C,0);
+                }
+
+                plat->placerPion(C,0);
+            }
+        }
+        
+        C=Gauche;
+            
+        T.clear();
+
+        if(Gauche.x>0 && estVivant(C,*plat)==false)
+        {
+            for(int k=0;k<T.size();k++)
+            {
+                C.x=T[k].x;
+                C.y=T[k].y;
+
+                if(plat->getIntersection(C)==-1) 
+                {
+                    jNoir.ajoutPrisonniers(1);
+                    plat->placerPion(C,0);
+                }
+
+                if(plat->getIntersection(C)==1) 
+                {
+                    jBlanc.ajoutPrisonniers(1);
+                    plat->placerPion(C,0);
+                }
+
+                plat->placerPion(C,0);
+            }
+        }
+        C=Droite;
+            
+        T.clear();
+
+        if(Droite.x<plat->getTaille() && estVivant(C,*plat)==false)
+        {
+            for(int k=0;k<T.size();k++)
+            {
+                C.x=T[k].x;
+                C.y=T[k].y;
+
+                if(plat->getIntersection(C)==-1) 
+                {
+                    jNoir.ajoutPrisonniers(1);
+                    plat->placerPion(C,0);
+                }
+
+                if(plat->getIntersection(C)==1) 
+                {
+                    jBlanc.ajoutPrisonniers(1);
+                    plat->placerPion(C,0);
+                }
+
+                plat->placerPion(C,0);
+            }
+        }
+        /**/
     for(i=0;i<plat->getTaille();i++)
     {
         for(j=0;j<plat->getTaille();j++)
