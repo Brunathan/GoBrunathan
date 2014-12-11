@@ -11,6 +11,7 @@ using namespace std;
 
 bool Jeu::jouable(Coord C, int Couleur)
 {
+    if(C.x<-1 || C.x>=P->getTaille() || C.y<-1 || C.y>=P->getTaille()) return false;
     if(P->getIntersection(C)!=0) return false;
     
     Plateau nouvPlat(*P);
