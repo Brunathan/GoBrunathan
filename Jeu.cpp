@@ -109,6 +109,10 @@ void Jeu::run()
     choixpris();
     
     calculScore();
+    
+    if(jBlanc.getScore()!=0) jBlanc.ajoutPrisonniers(2);
+    if(jNoir.getScore()!=0) jNoir.ajoutPrisonniers(2);
+    
     if(jBlanc.getScore() > jNoir.getScore()) cout<<endl<<"Joueur blanc a gagne !"<<endl;
     
     else cout<<endl<<"Joueur noir a gagne !"<<endl;

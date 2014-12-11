@@ -18,18 +18,21 @@
 
 class Jeu {
 public:
+    void rafraichir(Plateau* plat, Coord LastC);
     bool jouable(Coord C, int Couleur);
     void run();
     bool fin();
     bool estVivant(Coord C, Plateau plat);
-    void rafraichir(Plateau* plat); // Renvoie (nb pions blancs,nb pions noirs) supprimés 
     int test(Coord C, int* Couleur);
     void calculScore();
     bool tested(Coord C);
     void choixpris();
-private:
-    std::vector<Coord> T; 
     Plateau* P;
+    
+    
+private:
+    
+    std::vector<Coord> T; 
     joueur jBlanc , jNoir;
     
 };
