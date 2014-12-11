@@ -38,3 +38,8 @@ joueur::joueur()
      if(dernierTour.x==-1 && dernierTour.y==-1) return true;
      else return false;
  }
+ 
+ int joueur::getScore() const
+ {
+     return nbPrisonniers;
+ }

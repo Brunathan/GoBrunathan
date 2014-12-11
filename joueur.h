@@ -17,6 +17,7 @@ public:
     void ajoutPrisonniers(int nb);
     Coord choixJeu(); // (-1,-1) pour passer son tours 
     bool aPasse ();
+    int getScore() const;
     
 private:
     int couleur; //-1:blanc 0:rien 1:noir 

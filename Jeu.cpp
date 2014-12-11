@@ -12,12 +12,15 @@ using namespace std;
 bool Jeu::jouable(Coord C, int Couleur)
 {
     if(C.x<-1 || C.x>=P->getTaille() || C.y<-1 || C.y>=P->getTaille()) return false;
+    if(C.x==-1 && C.y==-1) return true;
     if(P->getIntersection(C)!=0) return false;
     
     Plateau nouvPlat(*P);
     nouvPlat.placerPion(C,Couleur);
     
+    cout<<"a"<<endl;
     if(estVivant(C,nouvPlat)) return true;
+    cout<<"b"<<endl;
     
     return false;
 }
@@ -72,11 +75,16 @@ void Jeu::run()
         }
     }
     
+    choixpris();
+    
     calculScore();
-    if( > score().y) cout<<endl<<"Joueur blanc a gagne !"<<endl;
+    if(jBlanc.getScore() > jNoir.getScore()) cout<<endl<<"Joueur blanc a gagne !"<<endl;
     
-    //else cout<<endl<<"Joueur noir a gagne !"<<endl;
+    else cout<<endl<<"Joueur noir a gagne !"<<endl;
     
+    cout<<endl<<"Scores :"<<endl<<"Noir: "<<jNoir.getScore()<<endl<<"Blanc: "<<jBlanc.getScore()<<endl;    
+    
+    P->affichage();
     
     cout<<endl<<"fini !"<<endl;
 }
@@ -87,8 +95,19 @@ bool Jeu::fin()
     else return false;
 }
 
+bool Jeu::tested(Coord C)
+{
+    for(unsigned int i=0;i<T.size();i++)
+    {
+        if(C.x==T[i].x && C.y==T[i].y) return true;
+    }
+    
+    return false;
+}
+
 bool Jeu::estVivant(Coord C, Plateau plat)
 {
+    T.push_back(C);
     
     int x=C.x;
     int y=C.y;
@@ -99,47 +118,61 @@ bool Jeu::estVivant(Coord C, Plateau plat)
     Coord Droite(x+1,y);
     
     if (
-        (Haut.y<plat.getTaille() && plat.getIntersection(Haut)==0)      ||
-        (Bas.y>=0 && plat.getIntersection(Bas)==0)                      ||
-        (Gauche.x>=0 && plat.getIntersection(Gauche)==0)                ||
-        (Droite.x<plat.getTaille() && plat.getIntersection(Droite)==0)  
+        (Haut.y   < plat.getTaille() && plat.getIntersection(Haut)==0)      ||
+        (Bas.y    >= 0                && plat.getIntersection(Bas)==0)       ||
+        (Gauche.x >= 0               && plat.getIntersection(Gauche)==0)    ||
+        (Droite.x < plat.getTaille() && plat.getIntersection(Droite)==0)  
        )
     {
         return true;
     }
     
-    if((plat.getIntersection(Haut)   == plat.getIntersection(C) && estVivant(Haut,plat))
-    || (plat.getIntersection(Droite) == plat.getIntersection(C) && estVivant(Droite,plat))
-    || (plat.getIntersection(Gauche) == plat.getIntersection(C) && estVivant(Gauche,plat))
-    || (plat.getIntersection(Bas)    == plat.getIntersection(C) && estVivant(Bas,plat)))
+    if((Haut.y   < plat.getTaille() &&  plat.getIntersection(Haut)    == plat.getIntersection(C) && tested(Haut)   == false && estVivant(Haut,plat))
+    || (Bas.y    >= 0               &&  plat.getIntersection(Bas)     == plat.getIntersection(C) && tested(Bas)    == false && estVivant(Bas,plat))
+    || (Gauche.x >= 0               &&  plat.getIntersection(Gauche)  == plat.getIntersection(C) && tested(Gauche) == false && estVivant(Gauche,plat))
+    || (Droite.x < plat.getTaille() &&  plat.getIntersection(Droite)  == plat.getIntersection(C) && tested(Droite) == false && estVivant(Droite,plat)))
     {
         return true;
     }        
-    
+     
     return false;
 }
 
 void Jeu::rafraichir(Plateau* plat)
 {
     Coord C;
+    int i,j;
     
-    for(C.x=0;C.x<plat->getTaille();C.x++)
+    for(i=0;i<plat->getTaille();i++)
     {
-        for(C.y=0;C.y<plat->getTaille();C.y++)
+        for(j=0;j<plat->getTaille();j++)
         {
+            C.x=i;
+            C.y=j;
+            
+            T.clear();
+            
             if(estVivant(C,*plat)==false)
             {
-                if(plat->getIntersection(C)==-1) 
+                for(int k=0;k<T.size();k++)
                 {
-                    jNoir.ajoutPrisonniers(1);
+                    C.x=T[k].x;
+                    C.y=T[k].y;
+                    
+                    if(plat->getIntersection(C)==-1) 
+                    {
+                        jNoir.ajoutPrisonniers(1);
+                        plat->placerPion(C,0);
+                    }
+                    
+                    if(plat->getIntersection(C)==1) 
+                    {
+                        jBlanc.ajoutPrisonniers(1);
+                        plat->placerPion(C,0);
+                    }
+                    
                     plat->placerPion(C,0);
                 }
-                if(plat->getIntersection(C)==1) 
-                {
-                    jBlanc.ajoutPrisonniers(1);
-                    plat->placerPion(C,0);
-                }
-                plat->placerPion(C,0);
             }
         }
     }
@@ -158,28 +191,28 @@ int Jeu::test(Coord C, int* Couleur)
     Coord Droite(x+1,y);
     
     /*  CASES ADJACENTES NON VIDES  */
-    if (Haut.y<P->getTaille() && P->getIntersection(Haut)!=0)
+    if (Haut.y < P->getTaille() && P->getIntersection(Haut)!=0)
     {
-        if (*Couleur == 2) *Couleur = P->getIntersection(Haut);  // 2=Aucune couleur rencontré
-        if (*Couleur == -P->getIntersection(Haut)) *Couleur == 3; // 3=Couleurs différentes rencontrées
+        if (*Couleur == 2) *Couleur = P->getIntersection(Haut);  // 2=Aucune couleur rencontrée
+        if (*Couleur == -P->getIntersection(Haut)) *Couleur = 3; // 3=Couleurs différentes rencontrées
     }
         
     if (Bas.y>=0 && P->getIntersection(Bas)!=0)       
     {
         if (*Couleur == 2) *Couleur = P->getIntersection(Bas);  // 2=Aucune couleur rencontré
-        if (*Couleur == -P->getIntersection(Bas)) *Couleur == 3; // 3=Couleurs différentes rencontrées
+        if (*Couleur == -P->getIntersection(Bas)) *Couleur = 3; // 3=Couleurs différentes rencontrées
     }
     
     if (Gauche.x>=0 && P->getIntersection(Gauche)!=0)  
     {
         if (*Couleur == 2) *Couleur = P->getIntersection(Gauche);  // 2=Aucune couleur rencontré
-        if (*Couleur == -P->getIntersection(Gauche)) *Couleur == 3; // 3=Couleurs différentes rencontrées
+        if (*Couleur == -P->getIntersection(Gauche)) *Couleur = 3; // 3=Couleurs différentes rencontrées
     }   
     
     if (Droite.x<P->getTaille() && P->getIntersection(Droite)!=0)  
     {
         if (*Couleur == 2) *Couleur = P->getIntersection(Droite);  // 2=Aucune couleur rencontré
-        if (*Couleur == -P->getIntersection(Droite)) *Couleur == 3; // 3=Couleurs différentes rencontrées
+        if (*Couleur == -P->getIntersection(Droite)) *Couleur = 3; // 3=Couleurs différentes rencontrées
     }
     
     /*  CASES ADJACENTES VIDES  */
@@ -222,8 +255,57 @@ void Jeu::calculScore()
                 *Couleur=2;
                 Score=test(C,Couleur); 
                 if(*Couleur==-1) jBlanc.ajoutPrisonniers(Score);
-                if(*Couleur==1) jNoir.ajoutPrisonniers(Score);
+                if(*Couleur==1)  jNoir.ajoutPrisonniers(Score);
             }
         }
     }
+}
+
+void Jeu::choixpris()//a faire avant de calculer le score
+{
+    Coord C;
+    C.x=-1;//initialisation
+    C.y=-1;//initialisation
+    while (C.x!=0 && C.y!=0)//tant que on a pas envie d'arrêter
+    {
+        
+        cout<<"Entrez la coordonnée d'un prisonniers : entrez \"0\" pour terminer "<<endl;
+
+        cout<<" premiere coordonnée (ligne) ?" <<endl;
+
+        cin>>C.x;
+        if(C.x == 0) //juste pour arrêter ici quand on a un zero
+        {
+            break;
+        }
+
+        cout<<"seconde coordonnée (collone) ? "<<endl;
+
+        cin>>C.y;
+        
+        C.x-=1;
+        C.y-=1;
+
+        if (C.x>0 || C.y>0 || C.x<P->getTaille()||C.y<P->getTaille())//si on lui dit pas nimp
+        {
+            if (P->getIntersection(C)== -1)//Pion blanc
+            {
+                P->supprimerPion(C);
+                jNoir.ajoutPrisonniers(1);
+                cout<<"Un pion blanc a été supprimé"<<endl;
+
+            }
+            if (P->getIntersection(C)== 1)//Pion noir
+            {
+                P->supprimerPion(C);
+                jBlanc.ajoutPrisonniers(1);
+                cout<<"Un pion noir a été supprimé"<<endl;
+
+            }
+        }
+        
+        P->affichage();
+    }
+    
+            
 }

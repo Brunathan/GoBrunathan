@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <vector>
 
 #include "Coord.h"
 #include "Plateau.h"
@@ -24,7 +25,10 @@ public:
     void rafraichir(Plateau* plat); // Renvoie (nb pions blancs,nb pions noirs) supprimés 
     int test(Coord C, int* Couleur);
     void calculScore();
+    bool tested(Coord C);
+    void choixpris();
 private:
+    std::vector<Coord> T; 
     Plateau* P;
     joueur jBlanc , jNoir;
     
